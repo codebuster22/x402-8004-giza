@@ -220,4 +220,14 @@ contract StrategyReputation is EIP712, IStrategyReputation {
         _reputations[agentId].feedbackCount++;
         _reputations[agentId].totalScore += score;
     }
+
+    /**
+     * @notice Expose hashTypedDataV4 for testing purposes
+     * @param structHash The struct hash to wrap with domain separator
+     * @return The EIP-712 digest
+     * @dev This function is public to enable test signature generation
+     */
+    function hashTypedDataV4(bytes32 structHash) public view returns (bytes32) {
+        return _hashTypedDataV4(structHash);
+    }
 }
