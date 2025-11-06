@@ -48,12 +48,7 @@ interface IStrategyReputation {
      * @param currentIndex The client's current feedback index
      * @param indexLimit The authorized limit from feedbackAuth
      */
-    error IndexLimitExceeded(
-        uint256 agentId,
-        address client,
-        uint256 currentIndex,
-        uint256 indexLimit
-    );
+    error IndexLimitExceeded(uint256 agentId, address client, uint256 currentIndex, uint256 indexLimit);
 
     /**
      * @notice FeedbackAuth signature has expired

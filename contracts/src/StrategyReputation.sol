@@ -53,9 +53,7 @@ contract StrategyReputation is EIP712, IStrategyReputation {
      * @notice Initialize the contract with identity registry reference
      * @param _identityRegistry Address of the StrategyRegistry contract
      */
-    constructor(address _identityRegistry)
-        EIP712("StrategyReputation", "1")
-    {
+    constructor(address _identityRegistry) EIP712("StrategyReputation", "1") {
         identityRegistry = IStrategyRegistry(_identityRegistry);
     }
 
@@ -91,8 +89,8 @@ contract StrategyReputation is EIP712, IStrategyReputation {
             structData[i] = feedbackAuth[i];
         }
 
-        (uint256 authAgentId, address authClientAddress, uint256 indexLimit, uint256 expiry, uint256 chainId)
-            = abi.decode(structData, (uint256, address, uint256, uint256, uint256));
+        (uint256 authAgentId, address authClientAddress, uint256 indexLimit, uint256 expiry, uint256 chainId) =
+            abi.decode(structData, (uint256, address, uint256, uint256, uint256));
 
         // Extract 65-byte signature
         bytes memory signature = new bytes(65);
@@ -195,14 +193,8 @@ contract StrategyReputation is EIP712, IStrategyReputation {
         bytes memory signature
     ) internal view returns (address signer) {
         // Compute struct hash
-        bytes32 structHash = keccak256(abi.encode(
-            FEEDBACK_AUTH_TYPEHASH,
-            agentId,
-            clientAddress,
-            indexLimit,
-            expiry,
-            block.chainid
-        ));
+        bytes32 structHash =
+            keccak256(abi.encode(FEEDBACK_AUTH_TYPEHASH, agentId, clientAddress, indexLimit, expiry, block.chainid));
 
         // Get EIP-712 digest
         bytes32 digest = _hashTypedDataV4(structHash);

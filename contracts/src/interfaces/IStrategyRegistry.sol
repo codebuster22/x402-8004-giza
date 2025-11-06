@@ -13,11 +13,7 @@ interface IStrategyRegistry {
      * @param tokenURI The metadata URI for the agent
      * @param owner The address that owns the agent NFT
      */
-    event Registered(
-        uint256 indexed agentId,
-        string tokenURI,
-        address indexed owner
-    );
+    event Registered(uint256 indexed agentId, string tokenURI, address indexed owner);
 
     /**
      * @notice Register a new service agent and mint an ERC-721 NFT

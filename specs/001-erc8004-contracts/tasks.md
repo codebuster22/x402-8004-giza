@@ -125,58 +125,58 @@ Each user story can be developed, tested, and deployed independently.
 ### US2: Contract Implementation - StrategyReputation Base
 
 - [x] T031 [US2] Create StrategyReputation contract in contracts/src/StrategyReputation.sol inheriting from OpenZeppelin EIP712
-- [ ] T032 [US2] Implement constructor accepting identityRegistry address parameter and initializing EIP712 with name "StrategyReputation" and version "1"
-- [ ] T033 [US2] Add immutable identityRegistry variable of type IStrategyRegistry in StrategyReputation contract
-- [ ] T034 [US2] Define FEEDBACK_AUTH_TYPEHASH constant as keccak256 of EIP-712 struct signature string
-- [ ] T035 [US2] Define Feedback struct with fields: clientAddress, score (uint8), tag1, tag2 (bytes32), fileuri (string), filehash (bytes32), timestamp (uint40)
-- [ ] T036 [US2] Add private mapping _clientIndices: mapping(uint256 => mapping(address => uint256)) for tracking client feedback counts per agent
-- [ ] T037 [US2] Add private mapping _feedbacks: mapping(uint256 => Feedback[]) for storing feedback arrays per agent
+- [x] T032 [US2] Implement constructor accepting identityRegistry address parameter and initializing EIP712 with name "StrategyReputation" and version "1"
+- [x] T033 [US2] Add immutable identityRegistry variable of type IStrategyRegistry in StrategyReputation contract
+- [x] T034 [US2] Define FEEDBACK_AUTH_TYPEHASH constant as keccak256 of EIP-712 struct signature string
+- [x] T035 [US2] Define Feedback struct with fields: clientAddress, score (uint8), tag1, tag2 (bytes32), fileuri (string), filehash (bytes32), timestamp (uint40)
+- [x] T036 [US2] Add private mapping _clientIndices: mapping(uint256 => mapping(address => uint256)) for tracking client feedback counts per agent
+- [x] T037 [US2] Add private mapping _feedbacks: mapping(uint256 => Feedback[]) for storing feedback arrays per agent
 
 ### US2: Contract Implementation - Signature Verification
 
-- [ ] T038 [US2] Implement _verifyFeedbackAuth internal function that accepts agentId, clientAddress, indexLimit, expiry, signature parameters
-- [ ] T039 [US2] Add expiry timestamp validation in _verifyFeedbackAuth (require block.timestamp <= expiry)
-- [ ] T040 [US2] Add chainId validation in _verifyFeedbackAuth (encoded in EIP-712 struct hash)
-- [ ] T041 [US2] Compute EIP-712 struct hash in _verifyFeedbackAuth using FEEDBACK_AUTH_TYPEHASH and parameters
-- [ ] T042 [US2] Call _hashTypedDataV4(structHash) to get final digest for signature verification
-- [ ] T043 [US2] Use ECDSA.recover to extract signer address from signature and digest
-- [ ] T044 [US2] Return recovered signer address from _verifyFeedbackAuth function
+- [x] T038 [US2] Implement _verifyFeedbackAuth internal function that accepts agentId, clientAddress, indexLimit, expiry, signature parameters
+- [x] T039 [US2] Add expiry timestamp validation in _verifyFeedbackAuth (require block.timestamp <= expiry)
+- [x] T040 [US2] Add chainId validation in _verifyFeedbackAuth (encoded in EIP-712 struct hash)
+- [x] T041 [US2] Compute EIP-712 struct hash in _verifyFeedbackAuth using FEEDBACK_AUTH_TYPEHASH and parameters
+- [x] T042 [US2] Call _hashTypedDataV4(structHash) to get final digest for signature verification
+- [x] T043 [US2] Use ECDSA.recover to extract signer address from signature and digest
+- [x] T044 [US2] Return recovered signer address from _verifyFeedbackAuth function
 
 ### US2: Contract Implementation - giveFeedback Function
 
-- [ ] T045 [US2] Implement giveFeedback() public function accepting agentId, score, tag1, tag2, fileuri, filehash, feedbackAuth parameters
-- [ ] T046 [US2] Add score validation in giveFeedback: revert InvalidScore if score > 100
-- [ ] T047 [US2] Decode feedbackAuth bytes to extract struct fields (agentId, clientAddress, indexLimit, expiry, chainId) and 65-byte signature
-- [ ] T048 [US2] Call _verifyFeedbackAuth to recover signer address from feedbackAuth
-- [ ] T049 [US2] Query identityRegistry.ownerOf(agentId) to get agent NFT owner (reverts if agentId doesn't exist)
-- [ ] T050 [US2] Validate recovered signer equals agent owner: revert InvalidSigner if mismatch
-- [ ] T051 [US2] Get current client index from _clientIndices[agentId][msg.sender]
-- [ ] T052 [US2] Validate current index < indexLimit: revert IndexLimitExceeded if at or over limit
-- [ ] T053 [US2] Create Feedback struct with msg.sender as clientAddress, uint40(block.timestamp) as timestamp
-- [ ] T054 [US2] Append new Feedback struct to _feedbacks[agentId] array
-- [ ] T055 [US2] Increment _clientIndices[agentId][msg.sender] by 1
-- [ ] T056 [US2] Emit NewFeedback event with indexed agentId, clientAddress, tag1; non-indexed score, tag2, fileuri, filehash
+- [x] T045 [US2] Implement giveFeedback() public function accepting agentId, score, tag1, tag2, fileuri, filehash, feedbackAuth parameters
+- [x] T046 [US2] Add score validation in giveFeedback: revert InvalidScore if score > 100
+- [x] T047 [US2] Decode feedbackAuth bytes to extract struct fields (agentId, clientAddress, indexLimit, expiry, chainId) and 65-byte signature
+- [x] T048 [US2] Call _verifyFeedbackAuth to recover signer address from feedbackAuth
+- [x] T049 [US2] Query identityRegistry.ownerOf(agentId) to get agent NFT owner (reverts if agentId doesn't exist)
+- [x] T050 [US2] Validate recovered signer equals agent owner: revert InvalidSigner if mismatch
+- [x] T051 [US2] Get current client index from _clientIndices[agentId][msg.sender]
+- [x] T052 [US2] Validate current index < indexLimit: revert IndexLimitExceeded if at or over limit
+- [x] T053 [US2] Create Feedback struct with msg.sender as clientAddress, uint40(block.timestamp) as timestamp
+- [x] T054 [US2] Append new Feedback struct to _feedbacks[agentId] array
+- [x] T055 [US2] Increment _clientIndices[agentId][msg.sender] by 1
+- [x] T056 [US2] Emit NewFeedback event with indexed agentId, clientAddress, tag1; non-indexed score, tag2, fileuri, filehash
 
 ### US2: Helper Functions
 
-- [ ] T057 [P] [US2] Implement getClientIndex(uint256 agentId, address clientAddress) public view function returning current index from _clientIndices
-- [ ] T058 [P] [US2] Add error handling comments documenting all revert conditions in giveFeedback function
+- [x] T057 [P] [US2] Implement getClientIndex(uint256 agentId, address clientAddress) public view function returning current index from _clientIndices
+- [x] T058 [P] [US2] Add error handling comments documenting all revert conditions in giveFeedback function
 
 ### US2: Test Implementation
 
-- [ ] T059 [US2] Create StrategyReputation.t.sol test contract in contracts/test/ with setUp() deploying both Registry and Reputation contracts
-- [ ] T060 [US2] Create test helper function _generateValidFeedbackAuth that signs EIP-712 typed data using agent owner's private key
-- [ ] T061 [P] [US2] Write test_GiveFeedback_StoresFeedback() verifying feedback is stored correctly in _feedbacks array
-- [ ] T062 [P] [US2] Write test_GiveFeedback_IncrementsClientIndex() verifying client index increments from 0 to 1
-- [ ] T063 [P] [US2] Write test_GiveFeedback_EmitsNewFeedbackEvent() verifying NewFeedback event with all parameters
-- [ ] T064 [P] [US2] Write test_GiveFeedback_RevertsInvalidScore() testing score > 100 rejection
-- [ ] T065 [P] [US2] Write test_GiveFeedback_RevertsNonexistentAgent() testing agentId that doesn't exist
-- [ ] T066 [P] [US2] Write test_GiveFeedback_RevertsExpiredSignature() testing feedbackAuth past expiry
-- [ ] T067 [P] [US2] Write test_GiveFeedback_RevertsInvalidSigner() testing feedbackAuth signed by non-owner
-- [ ] T068 [P] [US2] Write test_GiveFeedback_RevertsIndexLimitExceeded() testing submission when current index >= indexLimit
-- [ ] T069 [P] [US2] Write test_GiveFeedback_AllowsMultipleFromSameClient() verifying client can submit multiple feedbacks with batch auth
-- [ ] T070 [P] [US2] Write test_GetClientIndex_ReturnsCorrectValue() verifying getClientIndex returns accurate current index
-- [ ] T071 [US2] Run all tests with `forge test --match-contract StrategyReputationTest` and verify 100% pass
+- [x] T059 [US2] Create StrategyReputation.t.sol test contract in contracts/test/ with setUp() deploying both Registry and Reputation contracts
+- [x] T060 [US2] Create test helper function _generateValidFeedbackAuth that signs EIP-712 typed data using agent owner's private key
+- [x] T061 [P] [US2] Write test_GiveFeedback_StoresFeedback() verifying feedback is stored correctly in _feedbacks array
+- [x] T062 [P] [US2] Write test_GiveFeedback_IncrementsClientIndex() verifying client index increments from 0 to 1
+- [x] T063 [P] [US2] Write test_GiveFeedback_EmitsNewFeedbackEvent() verifying NewFeedback event with all parameters
+- [x] T064 [P] [US2] Write test_GiveFeedback_RevertsInvalidScore() testing score > 100 rejection
+- [x] T065 [P] [US2] Write test_GiveFeedback_RevertsNonexistentAgent() testing agentId that doesn't exist
+- [x] T066 [P] [US2] Write test_GiveFeedback_RevertsExpiredSignature() testing feedbackAuth past expiry
+- [x] T067 [P] [US2] Write test_GiveFeedback_RevertsInvalidSigner() testing feedbackAuth signed by non-owner
+- [x] T068 [P] [US2] Write test_GiveFeedback_RevertsIndexLimitExceeded() testing submission when current index >= indexLimit
+- [x] T069 [P] [US2] Write test_GiveFeedback_AllowsMultipleFromSameClient() verifying client can submit multiple feedbacks with batch auth
+- [x] T070 [P] [US2] Write test_GetClientIndex_ReturnsCorrectValue() verifying getClientIndex returns accurate current index
+- [x] T071 [US2] Run all tests with `forge test --match-contract StrategyReputationTest` and verify 100% pass
 
 **Story Validation**: All tests pass. Feedback submission works with proper signature verification, index tracking, and event emission. Contract integrates correctly with StrategyRegistry.
 
@@ -199,29 +199,29 @@ Each user story can be developed, tested, and deployed independently.
 
 ### US3: Contract Implementation - Reputation Storage
 
-- [ ] T072 [US3] Define AgentReputation struct with fields: feedbackCount (uint64), totalScore (uint256)
-- [ ] T073 [US3] Add private mapping _reputations: mapping(uint256 => AgentReputation) in StrategyReputation contract
-- [ ] T074 [US3] Implement _updateReputation internal function accepting agentId and score parameters
-- [ ] T075 [US3] In _updateReputation: increment _reputations[agentId].feedbackCount by 1
-- [ ] T076 [US3] In _updateReputation: add score to _reputations[agentId].totalScore
-- [ ] T077 [US3] Call _updateReputation(agentId, score) at end of giveFeedback function (before event emission)
+- [x] T072 [US3] Define AgentReputation struct with fields: feedbackCount (uint64), totalScore (uint256)
+- [x] T073 [US3] Add private mapping _reputations: mapping(uint256 => AgentReputation) in StrategyReputation contract
+- [x] T074 [US3] Implement _updateReputation internal function accepting agentId and score parameters
+- [x] T075 [US3] In _updateReputation: increment _reputations[agentId].feedbackCount by 1
+- [x] T076 [US3] In _updateReputation: add score to _reputations[agentId].totalScore
+- [x] T077 [US3] Call _updateReputation(agentId, score) at end of giveFeedback function (before event emission)
 
 ### US3: Contract Implementation - getSummary Function
 
-- [ ] T078 [US3] Implement getSummary(uint256 agentId) public view function returning (uint64 count, uint8 averageScore)
-- [ ] T079 [US3] In getSummary: load AgentReputation from _reputations[agentId]
-- [ ] T080 [US3] In getSummary: set count = reputation.feedbackCount
-- [ ] T081 [US3] In getSummary: calculate averageScore = count > 0 ? uint8(totalScore / count) : 0
-- [ ] T082 [US3] Add overflow protection documentation for totalScore accumulation (uint256 max vs 100 * uint64 max)
+- [x] T078 [US3] Implement getSummary(uint256 agentId) public view function returning (uint64 count, uint8 averageScore)
+- [x] T079 [US3] In getSummary: load AgentReputation from _reputations[agentId]
+- [x] T080 [US3] In getSummary: set count = reputation.feedbackCount
+- [x] T081 [US3] In getSummary: calculate averageScore = count > 0 ? uint8(totalScore / count) : 0
+- [x] T082 [US3] Add overflow protection documentation for totalScore accumulation (uint256 max vs 100 * uint64 max)
 
 ### US3: Test Implementation
 
-- [ ] T083 [P] [US3] Write test_GetSummary_ReturnsZeroForNoFeedback() verifying (0, 0) for newly registered agent
-- [ ] T084 [P] [US3] Write test_GetSummary_CalculatesAverageCorrectly() verifying average of multiple feedbacks (e.g., [85, 90, 80] → 85 average)
-- [ ] T085 [P] [US3] Write test_GetSummary_UpdatesAfterEachFeedback() verifying count and average update after each giveFeedback call
-- [ ] T086 [P] [US3] Write test_GetSummary_CountsMultipleFeedbacksFromSameClient() verifying no deduplication when same client submits multiple times
-- [ ] T087 [P] [US3] Write test_GetSummary_HandlesLargeNumberOfFeedbacks() testing with 100+ feedbacks to verify no overflow
-- [ ] T088 [US3] Run all tests with `forge test` and verify 100% pass rate across all test files
+- [x] T083 [P] [US3] Write test_GetSummary_ReturnsZeroForNoFeedback() verifying (0, 0) for newly registered agent
+- [x] T084 [P] [US3] Write test_GetSummary_CalculatesAverageCorrectly() verifying average of multiple feedbacks (e.g., [85, 90, 80] → 85 average)
+- [x] T085 [P] [US3] Write test_GetSummary_UpdatesAfterEachFeedback() verifying count and average update after each giveFeedback call
+- [x] T086 [P] [US3] Write test_GetSummary_CountsMultipleFeedbacksFromSameClient() verifying no deduplication when same client submits multiple times
+- [x] T087 [P] [US3] Write test_GetSummary_HandlesLargeNumberOfFeedbacks() testing with 100+ feedbacks to verify no overflow
+- [x] T088 [US3] Run all tests with `forge test` and verify 100% pass rate across all test files
 
 **Story Validation**: All tests pass. Reputation aggregation works correctly. Complete feature set is functional and tested.
 
@@ -237,26 +237,26 @@ Each user story can be developed, tested, and deployed independently.
 
 ### Deployment Script
 
-- [ ] T089 [P] Create Deploy.s.sol deployment script in contracts/script/ inheriting from forge-std Script
-- [ ] T090 [P] Implement run() function in Deploy.s.sol that deploys StrategyRegistry then StrategyReputation with registry address
-- [ ] T091 [P] Add console logging in Deploy.s.sol to output deployed contract addresses
-- [ ] T092 Test deployment locally with `forge script script/Deploy.s.sol --rpc-url http://localhost:8545` using Anvil
+- [x] T089 [P] Create Deploy.s.sol deployment script in contracts/script/ inheriting from forge-std Script
+- [x] T090 [P] Implement run() function in Deploy.s.sol that deploys StrategyRegistry then StrategyReputation with registry address
+- [x] T091 [P] Add console logging in Deploy.s.sol to output deployed contract addresses
+- [x] T092 Test deployment locally with `forge script script/Deploy.s.sol --rpc-url http://localhost:8545` using Anvil
 
 ### Base Sepolia Deployment
 
-- [ ] T093 Create .env file with BASE_SEPOLIA_RPC_URL, PRIVATE_KEY, and BASESCAN_API_KEY (never commit)
-- [ ] T094 Fund deployer account with Base Sepolia ETH from faucet
-- [ ] T095 Deploy contracts to Base Sepolia with `forge script script/Deploy.s.sol --rpc-url $BASE_SEPOLIA_RPC_URL --broadcast --verify`
-- [ ] T096 [P] Verify StrategyRegistry contract on BaseScan using `forge verify-contract`
-- [ ] T097 [P] Verify StrategyReputation contract on BaseScan using `forge verify-contract`
-- [ ] T098 Document deployed contract addresses in deployment log or README
+- [x] T093 Create .env file with BASE_SEPOLIA_RPC_URL, PRIVATE_KEY, and BASESCAN_API_KEY (never commit)
+- [x] T094 Fund deployer account with Base Sepolia ETH from faucet
+- [x] T095 Deploy contracts to Base Sepolia with `forge script script/Deploy.s.sol --rpc-url $BASE_SEPOLIA_RPC_URL --broadcast --verify`
+- [x] T096 [P] Verify StrategyRegistry contract on BaseScan using `forge verify-contract`
+- [x] T097 [P] Verify StrategyReputation contract on BaseScan using `forge verify-contract`
+- [x] T098 Document deployed contract addresses in deployment log or README
 
 ### Integration Preparation
 
-- [ ] T099 [P] Extract StrategyRegistry ABI from out/StrategyRegistry.sol/StrategyRegistry.json to specs/001-erc8004-contracts/contracts/StrategyRegistry.abi.json
-- [ ] T100 [P] Extract StrategyReputation ABI from out/StrategyReputation.sol/StrategyReputation.json to specs/001-erc8004-contracts/contracts/StrategyReputation.abi.json
-- [ ] T101 Create integration test example script demonstrating end-to-end flow: register agent → submit feedback → query reputation
-- [ ] T102 Update CLAUDE.md agent context file with deployed contract addresses and integration notes
+- [x] T099 [P] Extract StrategyRegistry ABI from out/StrategyRegistry.sol/StrategyRegistry.json to specs/001-erc8004-contracts/contracts/StrategyRegistry.abi.json
+- [x] T100 [P] Extract StrategyReputation ABI from out/StrategyReputation.sol/StrategyReputation.json to specs/001-erc8004-contracts/contracts/StrategyReputation.abi.json
+- [x] T101 Create integration test example script demonstrating end-to-end flow: register agent → submit feedback → query reputation
+- [x] T102 Update CLAUDE.md agent context file with deployed contract addresses and integration notes
 
 **Validation**: Contracts deployed successfully to Base Sepolia, verified on BaseScan, and ready for indexer integration.
 
@@ -272,23 +272,23 @@ Each user story can be developed, tested, and deployed independently.
 
 ### Gas Optimization
 
-- [ ] T103 [P] Run `forge test --gas-report` and document gas costs for register(), giveFeedback(), and getSummary()
-- [ ] T104 [P] Review feedback struct packing and optimize if needed to reduce storage slots
-- [ ] T105 [P] Add NatSpec comments to all public functions in StrategyRegistry.sol
-- [ ] T106 [P] Add NatSpec comments to all public functions in StrategyReputation.sol
+- [x] T103 [P] Run `forge test --gas-report` and document gas costs for register(), giveFeedback(), and getSummary()
+- [x] T104 [P] Review feedback struct packing and optimize if needed to reduce storage slots
+- [x] T105 [P] Add NatSpec comments to all public functions in StrategyRegistry.sol
+- [x] T106 [P] Add NatSpec comments to all public functions in StrategyReputation.sol
 
 ### Documentation
 
-- [ ] T107 [P] Create README.md in contracts/ directory with quickstart instructions from specs/001-erc8004-contracts/quickstart.md
-- [ ] T108 [P] Document all custom errors with usage examples in contract comments
-- [ ] T109 [P] Create DEPLOYMENT.md with deployment addresses, transaction hashes, and verification links
+- [x] T107 [P] Create README.md in contracts/ directory with quickstart instructions from specs/001-erc8004-contracts/quickstart.md
+- [x] T108 [P] Document all custom errors with usage examples in contract comments
+- [x] T109 [P] Create DEPLOYMENT.md with deployment addresses, transaction hashes, and verification links
 
 ### Final Validation
 
-- [ ] T110 Run full test suite with coverage: `forge coverage` and verify critical paths are tested
-- [ ] T111 Review all contracts for TODO comments and resolve or document
-- [ ] T112 Verify foundry.toml settings match production requirements (optimizer runs, solc version)
-- [ ] T113 Final code review: check for unused imports, commented code, console.log statements
+- [x] T110 Run full test suite with coverage: `forge coverage` and verify critical paths are tested
+- [x] T111 Review all contracts for TODO comments and resolve or document
+- [x] T112 Verify foundry.toml settings match production requirements (optimizer runs, solc version)
+- [x] T113 Final code review: check for unused imports, commented code, console.log statements
 
 **Validation**: All documentation complete, gas costs documented, contracts optimized and clean.
 

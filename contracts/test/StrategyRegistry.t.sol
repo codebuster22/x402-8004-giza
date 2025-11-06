@@ -10,11 +10,7 @@ contract StrategyRegistryTest is Test {
     address public alice = address(0x1);
     address public bob = address(0x2);
 
-    event Registered(
-        uint256 indexed agentId,
-        string tokenURI,
-        address indexed owner
-    );
+    event Registered(uint256 indexed agentId, string tokenURI, address indexed owner);
 
     function setUp() public {
         registry = new StrategyRegistry();
