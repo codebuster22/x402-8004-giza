@@ -1,0 +1,18 @@
+version: "3.9"
+
+services:
+  claude:
+    build: .
+    image: claude-dev:latest
+    working_dir: /workspace
+    stdin_open: true   # docker run -i
+    tty: true          # docker run -t
+    # Run Claude in YOLO mode so it can work autonomously
+    command: ["claude","--dangerously-skip-permissions"]
+    volumes:
+      - ./:/workspace
+      - ~/.ssh:/root/.ssh:ro
+    environment:
+      # These are overridden per-worktree via .env files
+      GIT_USER_NAME: "claude-code"
+      GIT_USER_EMAIL: "claude@chainlabs.in"
